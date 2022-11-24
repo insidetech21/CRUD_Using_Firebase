@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 
@@ -37,15 +38,15 @@ class _AddStudentPageState extends State<AddStudentPage> {
   }
 
   // Adding Student
- // CollectionReference students =
-  //FirebaseFirestore.instance.collection('students');
+ CollectionReference students =
+  FirebaseFirestore.instance.collection('students');
 
-  // Future<void> addUser() {
-  //   return students
-  //       .add({'name': name, 'email': email, 'password': password})
-  //       .then((value) => print('User Added'))
-  //       .catchError((error) => print('Failed to Add user: $error'));
-  // }
+  Future<void> addUser() {
+    return students
+        .add({'Name': name, 'Email': email, 'Password': password})
+        .then((value) => print('User Added'))
+        .catchError((error) => print('Failed to Add user: $error'));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,38 +124,36 @@ class _AddStudentPageState extends State<AddStudentPage> {
                   },
                 ),
               ),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        // Validate returns true if the form is valid, otherwise false.
-                        if (_formKey.currentState!.validate()) {
-                          setState(() {
-                            name = nameController.text;
-                            email = emailController.text;
-                            password = passwordController.text;
-                            //addUser();
-                            clearText();
-                          });
-                        }
-                      },
-                      child: const Text(
-                        'Register',
-                        style: TextStyle(fontSize: 18.0),
-                      ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      // Validate returns true if the form is valid, otherwise false.
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          name = nameController.text;
+                          email = emailController.text;
+                          password = passwordController.text;
+                          addUser();
+                          clearText();
+                        });
+                      }
+                    },
+                    child: const Text(
+                      'Register',
+                      style: TextStyle(fontSize: 18.0),
                     ),
-                    ElevatedButton(
-                      onPressed: () => {clearText()},
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
-                      child:  const Text(
-                        'Reset',
-                        style: TextStyle(fontSize: 18.0),
-                      ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => {clearText()},
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
+                    child:  const Text(
+                      'Reset',
+                      style: TextStyle(fontSize: 18.0),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               )
             ],
           ),
