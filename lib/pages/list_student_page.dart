@@ -59,7 +59,7 @@ class _ListStudentPageState extends State<ListStudentPage> {
           child: Table(
             border: TableBorder.all(),
             columnWidths: const <int, TableColumnWidth>{
-              2: FixedColumnWidth(96),
+              //2: FixedColumnWidth(96),
             },
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             children: [
